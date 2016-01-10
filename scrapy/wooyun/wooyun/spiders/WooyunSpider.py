@@ -69,6 +69,18 @@ class WooyunSpider(scrapy.Spider):
         #dt = response.xpath("//h3[@class='wybug_open_date']/text()").re("[\d+]{4}-[\d+]{2}-[\d+]{2}")[0].split('-')
         dt = response.xpath('//*[@id="bugDetail"]/div[5]/h3[6]/text()').re("[\d+]{4}-[\d+]{2}-[\d+]{2}")[0].split('-')
         item['datetime_open'] = datetime(int(dt[0]),int(dt[1]),int(dt[2]))
+        try:
+            item['rank'] = response.xpath('//div[@class="bug_result"]/p[@class="detail"]/text()').re(u".*Rank\uff1a([0-9]+)")[0]
+        except:
+            item['rank'] ='<Parse Error>'
+        try:
+            item['credit'] = response.xpath('//img[@class="credit"]').re("credit\.png")[0]
+        except:
+            item['credit'] ='<Parse Error>'
+        try:
+            item['money'] = response.xpath('//img[@class="credit"]').re("m[1-9]\.png")[0]
+        except:
+            item['money'] ='<Parse Error>'
         #images url for download
         item['image_urls']=[]
         if self.local_store:
