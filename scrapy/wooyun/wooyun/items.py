@@ -18,6 +18,9 @@ class WooyunItem(scrapy.Item):
     author = scrapy.Field()
     bug_type = scrapy.Field()
     html = scrapy.Field()
+    rank = scrapy.Field()
+    credit = scrapy.Field()
+    money = scrapy.Field()
     #
     image_urls = scrapy.Field()
     images = scrapy.Field()
